@@ -7,10 +7,6 @@
     <style>
         body {
             background-color: #020304;
-        }
-
-        body,
-        button {
             color: #fff;
             font: 1rem Arial, Helvetica, sans-serif;
         }
@@ -39,20 +35,22 @@
 
 <body>
     <div id="wrapper"></div>
+    <audio id="audio"></audio>
     <script>
         const wrapper = document.getElementById("wrapper");
+        const audio = document.getElementById("audio");
         const sounds = [
             "eat-raw-meat-to-kill-myself",
+            "consooming",
             "monkey-out",
             "raw-milk",
             "severe-mental-illness",
-            "vaccine"
+            "vaccine",
+            "we-ware-not-plants"
         ];
         let activeSound = null;
 
         sounds.forEach(function (sound) {
-            let audio = document.createElement("audio");
-            audio.src = `sounds/${sound}.mp3`;
             let a = document.createElement("a");
             a.innerText = sound;
             a.addEventListener("click", function () {
@@ -61,10 +59,10 @@
                     activeSound.currentTime = 0;
                 }
 
+                audio.src = `sounds/${sound}.mp3`;
                 audio.play();
                 activeSound = audio;
             });
-            wrapper.appendChild(audio);
             wrapper.appendChild(a);
         });
 
