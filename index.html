@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primal soundboard</title>
+    <style>
+        body {
+            background-color: #020304;
+        }
+
+        body,
+        button {
+            color: #fff;
+            font: 1rem Arial, Helvetica, sans-serif;
+        }
+
+        a {
+            color: orange;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 3em;
+            margin-right: 1em;
+            text-decoration: none;
+            transition: transform .3s;
+        }
+
+        a:hover, a:focus, a:active {
+            -webkit-transform: scale(1.1) rotate(4deg);
+            transform: scale(1.1) rotate(4deg);
+        }
+
+        #wrapper {
+            margin: 3em auto;
+            max-width: 50em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper"></div>
+    <script>
+        const wrapper = document.getElementById("wrapper");
+        const sounds = [
+            "eat-raw-meat-to-kill-myself",
+            "monkey-out",
+            "raw-milk",
+            "severe-mental-illness",
+            "vaccine"
+        ];
+        let activeSound = null;
+
+        sounds.forEach(function (sound) {
+            let audio = document.createElement("audio");
+            audio.src = `sounds/${sound}.mp3`;
+            let a = document.createElement("a");
+            a.innerText = sound;
+            a.addEventListener("click", function () {
+                if (activeSound) {
+                    activeSound.pause();
+                    activeSound.currentTime = 0;
+                }
+
+                audio.play();
+                activeSound = audio;
+            });
+            wrapper.appendChild(audio);
+            wrapper.appendChild(a);
+        });
+
+    </script>
+</body>
+</html>
