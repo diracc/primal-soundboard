@@ -9,20 +9,28 @@
         body {
             background-color: #020304;
             color: #fff;
-            font: 1rem Arial, Helvetica, sans-serif;
         }
 
-        a {
+        body,
+        button {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            background: transparent;
+            border: none;
             color: orange;
             cursor: pointer;
             display: inline-block;
             font-size: 2rem;
             margin-right: 1em;
+            padding: 0;
+            text-align: left;
             text-decoration: none;
             transition: transform .3s;
         }
 
-        a:hover, a:focus, a:active {
+        button:hover, button:focus, button:active {
             -webkit-transform: scale(1.1) rotate(4deg);
             transform: scale(1.1) rotate(4deg);
         }
@@ -37,7 +45,6 @@
         #wrapper {
             margin: auto;
             max-width: 50em;
-            padding: 0 1em;
         }
 
         #info {
@@ -50,6 +57,10 @@
 
         #info svg {
             vertical-align: middle;
+        }
+
+        #buttons {
+            padding: 0 1em;
         }
 
         @media (max-width: 400px) {
@@ -70,10 +81,11 @@
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
             <polyline points="11 12 12 12 12 16 13 16"></polyline>
          </svg> Click to play, double-click to download</div>
+         <div id="buttons"></div>
     </div>
     <audio id="audio"></audio>
     <script>
-        const wrapper = document.getElementById("wrapper");
+        const buttons = document.getElementById("buttons");
         const audio = document.getElementById("audio");
         const sounds = [
             "eat-raw-meat-to-kill-myself",
@@ -95,22 +107,48 @@
             "we-are-not-plants"
         ];
         let activeSound = null;
+        let timer = 0;
+        let clicked = false;
 
         sounds.forEach(function (sound) {
-            let a = document.createElement("a");
-            a.innerText = sound;
-            a.addEventListener("click", function () {
-                if (activeSound) {
-                    activeSound.pause();
-                    activeSound.currentTime = 0;
+            let button = document.createElement("button");
+            button.innerText = sound;
+            button.addEventListener("click", function () {
+                if (clicked) {
+                    clearTimeout(timer);
+                    downloadSound(sound);
+                    clicked = false;
+                } else {
+                    clicked = true;
+                    timer = setTimeout(function () {
+                        playSound(sound);
+                        clicked = false;
+                    }, 200);
                 }
-
-                audio.src = `sounds/${sound}.mp3`;
-                audio.play();
-                activeSound = audio;
             });
-            wrapper.appendChild(a);
+            buttons.appendChild(button);
         });
+        
+        function playSound(sound) {
+            if (activeSound) {
+                activeSound.pause();
+                activeSound.currentTime = 0;
+            }
+
+            audio.src = `sounds/${sound}.mp3`;
+            audio.play();
+            activeSound = audio;
+        }
+
+        function downloadSound(sound) {
+            const dl = document.createElement("a");
+            dl.href = `sounds/${sound}.mp3`;
+            dl.download = `${sound}.mp3`;
+            dl.style.display = "none";
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
+        }
 
     </script>
 </body>
