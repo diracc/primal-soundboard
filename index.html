@@ -15,7 +15,7 @@
             color: orange;
             cursor: pointer;
             display: inline-block;
-            font-size: 3rem;
+            font-size: 2rem;
             margin-right: 1em;
             text-decoration: none;
             transition: transform .3s;
@@ -26,21 +26,21 @@
             transform: scale(1.1) rotate(4deg);
         }
 
-        #wrapper {
-            margin: 3em auto;
-            max-width: 50em;
-            padding: 1em;
+        h1 {
+            text-align: center;
+            margin: 1em 0;
         }
 
-        @media (max-width: 600px) {
-            a {
-                font-size: 2rem;
-            }
+        #wrapper {
+            margin: auto;
+            max-width: 50em;
+            padding: 0 1em;
         }
     </style>
 </head>
 
 <body>
+    <h1>🥩 Primal soundboard 🔊</h1>
     <div id="wrapper"></div>
     <audio id="audio"></audio>
     <script>
