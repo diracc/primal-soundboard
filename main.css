@@ -28,7 +28,7 @@ button:hover, button:focus, button:active {
 }
 
 button::before {
-    background-color: red;
+    background-color: darkred;
     border: 2px solid #fff;
     border-radius: 50%;
     content: "";
