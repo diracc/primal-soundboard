@@ -64,6 +64,7 @@ h1 {
 }
 
 #buttons {
+    line-height: 2;
     padding: 0 1em;
 }
 
